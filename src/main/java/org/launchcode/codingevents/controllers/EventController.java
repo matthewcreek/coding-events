@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("events")
+@RequestMapping("events/")
 public class EventController {
 
     private static List<String> events = new ArrayList<>();
