@@ -30,7 +30,7 @@ public class EventController {
 //        return "redirect:";
 //    }
     @PostMapping("create")
-    public String createEvent(@ModelAttribute Event newEvent) {
+    public String processCreateEvent(@ModelAttribute Event newEvent) {
         EventData.add(newEvent);
         return "redirect:";
     }
@@ -43,12 +43,29 @@ public class EventController {
     }
 
     @PostMapping("delete")
-    public String deleteEvent(@RequestParam(required = false) int[] eventIds) {
+    public String processDeleteEvent(@RequestParam(required = false) int[] eventIds) {
         if (eventIds != null) {
             for (int id : eventIds) {
                 EventData.remove(id);
             }
         }
+        return "redirect:";
+    }
+
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId) {
+        Event editEvent = EventData.getById(eventId);
+        model.addAttribute("event", editEvent);
+        String title = "Edit Event " + editEvent.getName() + " (id=" + editEvent.getId() + ")";
+        model.addAttribute("title", title);
+        return "events/edit";
+    }
+
+    @PostMapping("edit")
+    public String processEditForm(int eventId, String name, String description) {
+        Event edited = EventData.getById(eventId);
+        edited.setName(name);
+        edited.setDescription(description);
         return "redirect:";
     }
 
