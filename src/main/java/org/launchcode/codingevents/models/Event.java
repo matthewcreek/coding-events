@@ -18,13 +18,17 @@ public class Event {
     @NotBlank(message = "Location can not be blank.")
     private String location;
     @AssertTrue(message = "Registration is required.")
-    private String isRegistrationRequired;
+    private Boolean isRegistrationRequired = true;
+    @Positive(message = "Must be 1 or more attendees.")
+    private Integer attendees;
 
-    public Event(String name, String description, String contactEmail) {
+    public Event(String name, String description, String contactEmail, Boolean isRegistrationRequired, Integer attendees) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.isRegistrationRequired = isRegistrationRequired;
+        this.attendees = attendees;
 
     }
     public Event() {
@@ -64,12 +68,20 @@ public class Event {
         this.location = location;
     }
 
-    public String getIsRegistrationRequired() {
+    public Boolean getRegistrationRequired() {
         return isRegistrationRequired;
     }
 
-    public void setIsRegistrationRequired(String isRegistrationRequired) {
-        this.isRegistrationRequired = isRegistrationRequired;
+    public void setRegistrationRequired(Boolean registrationRequired) {
+        isRegistrationRequired = registrationRequired;
+    }
+
+    public Integer getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(Integer attendees) {
+        this.attendees = attendees;
     }
 
     public int getId() {

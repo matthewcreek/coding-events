@@ -14,8 +14,10 @@
             <th>ID</th>
             <th>Name</th>
             <th>Description</th>
-            <th>Edit Details</th>
             <th>Contact Email</th>
+            <th>Registration Required?</th>
+            <th>Attendees</th>
+            <th>Edit Details</th>
         </tr>
     </thead>
     <tr th:each="event : ${events}">
@@ -23,6 +25,8 @@
         <td th:text="${event.name}"></td>
         <td th:text="${event.description}"></td>
         <td th:text="${event.contactEmail}"></td>
+        <td th:text="${event.getRegistrationRequired()}"></td>
+        <td th:text="${event.attendees}"></td>
         <td>
             <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
         </td>
