@@ -23,10 +23,22 @@
         <p class="error" th:errors="${event.description}"></p>
     </div>
     <div class="form-group">
+        <label>Location
+            <input th:field="${event.location}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.location}"></p>
+    </div>
+    <div class="form-group">
         <label>Contact Email
             <input th:field="${event.contactEmail}" class="form-control">
         </label>
         <p class="error" th:errors="${event.contactEmail}"></p>
+    </div>
+    <div class="form-group">
+        <label>Registration Required?
+            <input th:field="${event.isRegistrationRequired}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.isRegistrationRequired}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Create Event" class="btn btn-success">

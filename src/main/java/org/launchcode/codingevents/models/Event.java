@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
@@ -17,15 +15,22 @@ public class Event {
     @NotBlank(message = "Field can not be blank.")
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
+    @NotBlank(message = "Location can not be blank.")
+    private String location;
+    @AssertTrue(message = "Registration is required.")
+    private String isRegistrationRequired;
 
     public Event(String name, String description, String contactEmail) {
+        this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+
+    }
+    public Event() {
         this.id = nextId;
         nextId++;
     }
-    public Event() {}
 
     public String getName() {
         return name;
@@ -49,6 +54,22 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getIsRegistrationRequired() {
+        return isRegistrationRequired;
+    }
+
+    public void setIsRegistrationRequired(String isRegistrationRequired) {
+        this.isRegistrationRequired = isRegistrationRequired;
     }
 
     public int getId() {
