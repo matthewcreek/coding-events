@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tr th:each="tag : ${tags}">
-        <td th:text="${tag.displayName}"></td>
+        <td><a th:href="'/events/detail?tagId=' + ${tag.id}" th:text="${tag.name}"></a></td>
     </tr>
 
 </table>

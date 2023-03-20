@@ -29,18 +29,29 @@ public class EventController {
     private TagRepository tagRepository;
 
     @GetMapping("/")
-    public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model) {
-        if (categoryId == null) {
+    public String displayAllEvents(@RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer tagId, Model model) {
+        if (categoryId == null && tagId == null) {
             model.addAttribute("title", "All Events");
             model.addAttribute("events", eventRepository.findAll());
         } else {
             Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
-            if (result.isEmpty()) {
-                model.addAttribute("title", "Invalid Category ID: " + categoryId);
-            } else {
-                EventCategory category = result.get();
-                model.addAttribute("title","Events in Category: " + category.getName());
-                model.addAttribute("events", category.getEvents());
+            Optional<Tag> tagResult = tagRepository.findById(tagId);
+            if (categoryId != null) {
+                if (result.isEmpty()) {
+                    model.addAttribute("title", "Invalid Category ID: " + categoryId);
+                } else {
+                    EventCategory category = result.get();
+                    model.addAttribute("title", "Events in Category: " + category.getName());
+                    model.addAttribute("events", category.getEvents());
+                }
+            } else if (tagId != null) {
+                if (tagResult.isEmpty()){
+                    model.addAttribute("title", "Invalid Tag ID: " + tagId);
+                } else {
+                    EventCategory category = result.get();
+                    model.addAttribute("title","Events in Category: " + category.getName());
+                    model.addAttribute("events", category.getEvents());
+                }
             }
         }
         return "events/index";
